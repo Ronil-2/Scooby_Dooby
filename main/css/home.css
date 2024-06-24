@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgb(190,250,195);
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5rem;
+    width: 100%;
+    background: cyan;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+header input{
+    height: 2.5rem;
+    width: 27rem;
+    margin-left: 3rem;
+    font-size: 1.5rem;
+    padding: .5rem;
+    border-top-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    border: 2px solid black;
+    outline: none;
+}
+
+header #logo{
+    height: 4rem;
+    width: 5rem;
+    margin-right: 5rem;
+    background-image: url("../images/logo.png");
+    background-size: cover;
+    border-top-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+}
+
+
+.block{
+    margin-top: 13rem;
+    width: 100%;
+    height: 22rem;
+    background: #6aa2ff;
+}
+.block2{
+    margin-top: 15rem;
+}
+.block3{
+    margin-top: 15rem;
+}
+.block4{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.block nav{
+    width: 100%;
+    background: cyan;
+    height: 2.5rem;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: .5rem;
+    display: flex;
+    align-items: center;
+}
+
+#pfps{
+    display: flex;
+    gap: 5rem;
+    padding: 2rem;
+    overflow: auto;
+}
+
+#pfp img{
+    min-height: 15rem;
+    min-width: 15rem;
+    max-width: 15rem;
+    max-height: 15rem;
+    background: red;
+    border-radius: 50%;
+}
+
+.block1 #pfps{
+    justify-content: space-around;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: #b900ff;
+    display: flex;
+    height: 5rem;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+footer div i{
+    color: black;
+    font-size: 3rem;    
+}
+
+footer div:first-child i{
+    color: cyan;
+}
