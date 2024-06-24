@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bot</title>
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body>
+    
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <!-- Chat messages will be appended here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="search" placeholder="Type your message...">
+            <button id="btn">Send</button>
+        </div>
+    </div>
+    
+    <script type="importmap">
+  {
+    "imports": {
+      "@google/generative-ai": "https://esm.run/@google/generative-ai"
+    }
+  }
+</script>
+
+<script type="module">
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+
+  let btn = document.getElementById('btn');
+  const API_KEY = "AIzaSyCwuJ9uV2XCYGyPhqAtbrhmCUHAYTKEMPE";
+  const genAI = new GoogleGenerativeAI(API_KEY);
+
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash"
+  });
+
+  async function run(prompt) {
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = await response.text();
+    return text;
+  }
+
+  btn.addEventListener('click', async function() {
+    const userInput = document.getElementById('search').value;
+
+    if (userInput.trim() !== "") {
+      // Display the user's message
+      displayMessage(userInput, 'userMsg');
+      document.getElementById('search').value = '';
+
+      try {
+        const botResponse = await run(userInput);
+        displayMessage(botResponse, 'botMsg');
+      } catch (error) {
+        console.error('Error getting bot response:', error);
+      }
+    }
+  });
+
+  function displayMessage(message, className) {
+    const messageContainer = document.createElement('div');
+    messageContainer.className = `message ${className}`;
+    messageContainer.textContent = message;
+
+    const chatBox = document.getElementById('chatBox');
+    chatBox.insertBefore(messageContainer, chatBox.firstChild);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
+</body>
+</html>
