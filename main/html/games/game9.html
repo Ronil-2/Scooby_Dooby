@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+    <style>
+        body {
+    min-height: 100vh;
+    background: #252839;
+}
+
+.bulb{
+    background: white;
+    height: 20rem;
+    width: 20rem;
+    border: 1px solid white;
+    margin-top: 70px;
+    margin-left: 145px;
+    transition: all .3s linear;
+}
+
+button{
+    margin-top: 100px;
+    margin-left: 35px;
+    width: 7rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    transition: all .1s linear;
+}
+
+button:active{
+    scale: .9;
+}
+
+.btn1:focus~.bulb{
+    box-shadow: 0 0 10px cyan;
+    background: #6cc6d8;
+}
+
+.btn2:focus~.bulb{
+    box-shadow: 0 0 10px yellow;
+    background: yellow;
+}
+
+.btn3:focus~.bulb{
+    box-shadow: 0 0 10px green;
+    background: #00d87f;
+}
+
+.btn4:focus~.bulb{
+    box-shadow: 0 0 10px purple;
+    background: #c936d8;
+}
+
+.btn5:focus~.bulb{
+    box-shadow: 0 0 13px orange;
+    background: orange;
+}
+
+    </style>
+</head>
+<body>
+    <button class="btn1"> Light 1 </button>
+       <button class="btn2"> Light 2 </button>
+       <button class="btn3"> Light 3 </button>
+       <button class="btn4"> Light 4 </button>
+       <button class="btn5"> Light 5 </button>
+    
+    <div class="bulb"> </div>
+</body>
+</html>

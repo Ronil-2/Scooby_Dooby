@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Shooter</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+        #gameCanvas {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-color: #222;
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameCanvas"></div>
+    <script>
+        const gameCanvas = document.getElementById('gameCanvas');
+        const canvasWidth = gameCanvas.offsetWidth;
+        const canvasHeight = gameCanvas.offsetHeight;
+        const bubbleRadius = 20;
+        const bubbleSpeed = 2;
+
+        function createBubble(x, y) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.left = `${x - bubbleRadius}px`;
+            bubble.style.top = `${y - bubbleRadius}px`;
+            gameCanvas.appendChild(bubble);
+            return bubble;
+        }
+
+        function moveBubble(bubble) {
+            const interval = setInterval(() => {
+                const currentTop = parseFloat(bubble.style.top);
+                if (currentTop <= -bubbleRadius * 2) {
+                    clearInterval(interval);
+                    gameCanvas.removeChild(bubble);
+                } else {
+                    bubble.style.top = `${currentTop - bubbleSpeed}px`;
+                }
+            }, 16);
+        }
+
+        gameCanvas.addEventListener('click', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+            const bubble = createBubble(x, y);
+            moveBubble(bubble);
+        });
+    </script>
+</body>
+</html>

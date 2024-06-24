@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Ball Game</title>
+    <style>
+        body {
+            min-height: 100vh;
+            min-width: 100vw;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: black;
+        }
+
+        #gameArea {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            background-color: #87CEEB;
+            overflow: hidden;
+        }
+
+        #basket {
+            position: absolute;
+            bottom: 20px;
+            width: 100px;
+            height: 20px;
+            background: url('../../images/game/basket.jpg') no-repeat center center -500% -500%;
+            background-color: #8B4513;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #ball {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('../../images/game/basketball.jpg') no-repeat center center;
+            background-size: cover;
+            background: brown;
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #scoreboard {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameArea">
+        <div id="basket"></div>
+        <div id="ball"></div>
+        <div id="scoreboard">Score: 0</div>
+    </div>
+    <script>
+        const basket = document.getElementById('basket');
+        const ball = document.getElementById('ball');
+        const gameArea = document.getElementById('gameArea');
+        const scoreboard = document.getElementById('scoreboard');
+
+        let basketPosition = gameArea.offsetWidth / 2 - basket.offsetWidth / 2;
+        let ballPosition = { x: gameArea.offsetWidth / 2 - ball.offsetWidth / 2, y: 0 };
+        let ballSpeed = 2;
+        let score = 0;
+
+        function updateBasketPosition(event) {
+            const clientX = event.clientX || event.touches[0].clientX;
+            basketPosition = clientX - basket.offsetWidth / 2;
+            if (basketPosition < 0) basketPosition = 0;
+            if (basketPosition > gameArea.offsetWidth - basket.offsetWidth) basketPosition = gameArea.offsetWidth - basket.offsetWidth;
+            basket.style.left = basketPosition + 'px';
+        }
+
+        function updateBallPosition() {
+            ballPosition.y += ballSpeed;
+            if (ballPosition.y > gameArea.offsetHeight - basket.offsetHeight - ball.offsetHeight && ballPosition.x > basketPosition && ballPosition.x < basketPosition + basket.offsetWidth) {
+                score++;
+                scoreboard.textContent = 'Score: ' + score;
+                ballSpeed += 0.5; // Increase difficulty
+                resetBall();
+            } else if (ballPosition.y > gameArea.offsetHeight - ball.offsetHeight) {
+                alert(`Game Over! Your score: ${score}`);
+                score = 0;
+                scoreboard.textContent = 'Score: ' + score;
+                ballSpeed = 2;
+                resetBall();
+            }
+            ball.style.top = ballPosition.y + 'px';
+        }
+
+        function resetBall() {
+            ballPosition = { x: Math.random() * (gameArea.offsetWidth - ball.offsetWidth), y: 0 };
+            ball.style.left = ballPosition.x + 'px';
+        }
+
+        function gameLoop() {
+            updateBallPosition();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Event listeners for mouse and touch controls
+        gameArea.addEventListener('mousemove', updateBasketPosition);
+        gameArea.addEventListener('touchmove', updateBasketPosition, { passive: true });
+
+        resetBall();
+        gameLoop();
+    </script>
+</body>
+</html>
